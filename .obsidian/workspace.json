@@ -1,0 +1,156 @@
+{
+  "main": {
+    "id": "18717bc13c551cab",
+    "type": "split",
+    "children": [
+      {
+        "id": "3d368309f20010d6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d400ce129a409d1e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "OS/Lec 03.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "289c15ce9c06230f",
+    "type": "split",
+    "children": [
+      {
+        "id": "740bb02583963c3c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8369f69921d7ead2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "3543915b1f147e3f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "902df7386aed78f2",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "675265eaabc6b263",
+    "type": "split",
+    "children": [
+      {
+        "id": "3e1941cecf6a9e64",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "975762d7f5a4bc5f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "OS/Lec 03.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d4bd06745af9a13f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "OS/Lec 03.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d5fc0ff2c1f0fe33",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "3af61db9abed086f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "OS/Lec 03.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "d400ce129a409d1e",
+  "lastOpenFiles": [
+    "论文写作/Lec02.md",
+    "OS/Lec 03.md",
+    "论文写作",
+    "OS"
+  ]
+}
