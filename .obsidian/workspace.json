@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "3d368309f20010d6",
+        "id": "fe72850fe2d4d0d0",
         "type": "tabs",
         "children": [
           {
@@ -13,10 +13,18 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "OS/Lec 03.md",
+                "file": "rcore_notes/ch1_notes.md",
                 "mode": "source",
                 "source": false
               }
+            }
+          },
+          {
+            "id": "163ce8ca432856fc",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -69,7 +77,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "675265eaabc6b263",
@@ -85,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "OS/Lec 03.md",
+                "file": "rcore_notes/ch1_notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "OS/Lec 03.md",
+                "file": "rcore_notes/ch1_notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "OS/Lec 03.md"
+                "file": "rcore_notes/ch1_notes.md"
               }
             }
           }
@@ -148,8 +157,8 @@
   },
   "active": "d400ce129a409d1e",
   "lastOpenFiles": [
-    "论文写作/Lec02.md",
     "OS/Lec 03.md",
+    "论文写作/Lec02.md",
     "论文写作",
     "OS"
   ]
