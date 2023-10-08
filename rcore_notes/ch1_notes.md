@@ -27,6 +27,7 @@ linker.ld:调整内核内存布局，定义内核起始地址与布局
 	`BASE_ADDRESS = 0x80200000;`
 lang_items.rs :实现panic！处理
 sbi.rs:实现sbi服务接口函数，通过sbi_call可以和硬件进行交互
+	sbi_call其格式与syscall一致，通过ecall调用，eret返回
 console.rs:实现格式化输出print，println宏
 logger.rs:调用log crate实现分级输出
 
