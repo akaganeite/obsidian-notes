@@ -13,3 +13,10 @@
 - user/build.py:用linker.ld构建每个app的内存布局，放在不同起始地址的内存上
 	- `os.system('cargo build --bin %s --release' % app)`构建好后用这一条指令build
 switch.s->restore.s->用户态start.s
+
+
+# 问题
+1. build.py->cargo build,app的编译和加载过程
+	- 对于 `src/bin` 下的每个应用程序，在 `target/riscv64gc-unknown-none-elf/release` 目录下生成一个同名的 ELF 可执行文件；
+	- 使用 objcopy 二进制工具将上一步中生成的 ELF 文件删除所有 ELF header 和符号得到 `.bin` 后缀的纯二进制镜像文件。它们将被链接进内核。
+1. linker-qemu.ld

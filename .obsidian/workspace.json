@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#问题",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -146,7 +147,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "d400ce129a409d1e",
+  "active": "3543915b1f147e3f",
   "lastOpenFiles": [
     "rcore_notes/ch2_notes.md",
     "rcore_notes/ch3_notes.md",
