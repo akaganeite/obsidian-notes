@@ -24,6 +24,7 @@
 	- lang_items.rs:实现panic||console.rs:实现putchar||sbi.rs:实现sbi调用
 	- main.rs:启动器，trap_init;batch_init.最后调用==run_next_app==
 	- linker-qemu.ld:内核内存布局，从0x80200开始
+	- build.rs:生成link_app.s,负责将应用作为数据段链接到内核，user/bin有几个app就连接几个
 - user/src/用户相关code
 	- bin/:batch系统要跑的程序
 	- lib.rs:用户程序的依赖库
@@ -31,7 +32,7 @@
 		- `__start`:clear-bss，调用main（指向某个用户程序），执行exit(sys_call)-内核执行==run_next_app==
 		- 提供系统调用的用户接口:write(sys_write),exit(sys_exit)
 	- syscall.rs:实现系统调用，将ecall包装在syscall函数中，由sys_write,sys_exit调用
-	- linker.ld:用户内存布局，从0x80400开始
+	- linker.ld:用户程序内存布局，从0x80400开始
 
 
 # 问答题

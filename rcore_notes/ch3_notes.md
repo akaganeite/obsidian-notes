@@ -8,6 +8,8 @@
 	- context.rs 实现`TaskContext`，存有ra，sp，s0-s11。
 		- zero_init:结构体初始化为全0
 		- goto_restore：
-
-
+- timer.rs:系统调用获取时间
+- loader.rs:承接ch2batch的部分工作，从link_app.S中找到各个app并把app们加载到内存的指定位置
+- user/build.py:用linker.ld构建每个app的内存布局，放在不同起始地址的内存上
+	- `os.system('cargo build --bin %s --release' % app)`构建好后用这一条指令build
 switch.s->restore.s->用户态start.s
