@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "fe72850fe2d4d0d0",
+        "id": "476f1920c1b73bef",
         "type": "tabs",
         "children": [
           {
-            "id": "d400ce129a409d1e",
+            "id": "e169d576b5b58a3a",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#问题",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,8 +65,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -147,10 +146,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3543915b1f147e3f",
+  "active": "e169d576b5b58a3a",
   "lastOpenFiles": [
-    "rcore_notes/ch2_notes.md",
+    "新建 文本文档.txt",
     "rcore_notes/ch3_notes.md",
+    "rcore_notes/ch2_notes.md",
     "rcore_notes/ch1_notes.md",
     "conflict-files-obsidian-git.md",
     "论文写作/Lec03.md",
