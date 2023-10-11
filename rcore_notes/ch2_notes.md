@@ -24,7 +24,7 @@
 	- lang_items.rs:实现panic||console.rs:实现putchar||sbi.rs:实现sbi调用
 	- main.rs:启动器，trap_init;batch_init.最后调用==run_next_app==
 	- linker-qemu.ld:内核内存布局，从0x80200开始
-	- build.rs:生成link_app.s,负责将应用作为数据段链接到内核，user/bin有几个app就连接几个
+	- build.rs:生成link_app.s,负责将应用作为数据段链接到内核，user/bin有几个app就连接几个,cargo build命令自动调用
 - user/src/用户相关code
 	- bin/:batch系统要跑的程序
 	- lib.rs:用户程序的依赖库
