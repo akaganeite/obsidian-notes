@@ -25,3 +25,5 @@ switch.s->restore.s->用户态start.s
 	- 使用 objcopy 二进制工具将上一步中生成的 ELF 文件删除所有 ELF header 和符号得到 `.bin` 后缀的纯二进制镜像文件。它们将被链接进内核。
 1. linker-qemu，这里只是内核内存布局，entry.asm是真正规定内核栈空间的代码，它设定内核栈的大小并放置在.bss.stack段中
 
+
+    

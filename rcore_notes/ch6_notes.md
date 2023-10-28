@@ -1,0 +1,35 @@
+# easy-fs
+- `block_dev.rs` :**块设备接口层**,定义设备驱动需要实现的块读写接口 `BlockDevice` trait，`easy-fs` 中并没有一个实现了 `BlockDevice` Trait 的具体类型
+- `block_cache.rs`:**块缓存层**，实现磁盘块缓存功能
+	- BLOCK_CACHE_MANAGER：全局cache管理
+- `layout.rs` 和 `bitmap.rs`：磁盘数据结构层的代码
+	- ![[Pasted image 20231028114917.png]]
+	- 超级块，SuperBlock
+	- DIskInode：磁盘inode，在磁盘上的索引节点区域，每个块上都保存着若干个索引节点 `DiskInode`
+	- DirEntry：目录项
+
+# Structs
+- OSInode
+	- readable
+	- writable
+	- inner：OSInodeInner
+- OSInodeInner
+	- offset
+	- inode：Inode
+- Inode
+	- blck_id
+	- blck_offset
+	- fs:EasyFileSystem
+	- blck_device:Blckdevice
+- EasyFileSystem一个文件系统
+	- blck_device
+	- inode_btmap
+	- data_btmp
+	- inode_start_blck
+	- data_start_blck
+-  BlockDevice: 
+	- fn read_block;
+	- fn write_block;
+- Bitmap
+	- start_block_id
+	- blocks
