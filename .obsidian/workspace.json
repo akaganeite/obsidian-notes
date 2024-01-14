@@ -13,7 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "体系结构/重点作业.md",
+                "file": "网络与系统安全/第五章 网络边界与防护.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "4854f7b7ee06b4d5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "网络与系统安全/重点.md",
                 "mode": "source",
                 "source": false
               }
@@ -93,7 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "体系结构/重点作业.md",
+                "file": "网络与系统安全/第五章 网络边界与防护.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +122,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "体系结构/重点作业.md",
+                "file": "网络与系统安全/第五章 网络边界与防护.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,7 +145,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "体系结构/重点作业.md"
+                "file": "网络与系统安全/第五章 网络边界与防护.md"
               }
             }
           }
@@ -156,7 +168,9 @@
   },
   "active": "683fbea3e3a3cebf",
   "lastOpenFiles": [
+    "网络与系统安全/重点.md",
     "网络与系统安全/第五章 网络边界与防护.md",
+    "网络与系统安全/未命名.md",
     "体系结构/重点作业.md",
     "网络与系统安全/第九章 第十章 入侵检测与响应.md",
     "网络与系统安全/第十二章 拜占庭.md",
@@ -178,7 +192,6 @@
     "Pasted image 20240110123302.png",
     "Pasted image 20240110122951.png",
     "体系结构",
-    "网络与系统安全/未命名.md",
     "网络与系统安全",
     "第十三章 门限密码学.tmp",
     "网络与系统安全/第十一章 数据备份与灾难恢复.md",
