@@ -1,26 +1,14 @@
 {
   "main": {
-    "id": "6dc61ad1395164ba",
+    "id": "fab8156a8c86c9e1",
     "type": "split",
     "children": [
       {
-        "id": "b828ec29b1b6097f",
+        "id": "4f081607e3b9968b",
         "type": "tabs",
         "children": [
           {
-            "id": "683fbea3e3a3cebf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "网络与系统安全/第五章 网络边界与防护.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "4854f7b7ee06b4d5",
+            "id": "338e7d86f0ffa985",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -37,15 +25,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "18ffbbf483557711",
+    "id": "693618e8d08f4f11",
     "type": "split",
     "children": [
       {
-        "id": "b28f0f545a408278",
+        "id": "8ecf43c66dd50ca6",
         "type": "tabs",
         "children": [
           {
-            "id": "a3f0e8c0cee9b338",
+            "id": "125c5d886e4c5675",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -55,7 +43,7 @@
             }
           },
           {
-            "id": "1dabf1395f2e1135",
+            "id": "4653441c95b5700a",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -70,15 +58,7 @@
             }
           },
           {
-            "id": "f15de4d6fc3f283c",
-            "type": "leaf",
-            "state": {
-              "type": "starred",
-              "state": {}
-            }
-          },
-          {
-            "id": "ba09b184d7989b6c",
+            "id": "5abbe1197ecfbb1e",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -89,23 +69,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 300
   },
   "right": {
-    "id": "c5d0e14f317d19b6",
+    "id": "5de87ffeeeef90e1",
     "type": "split",
     "children": [
       {
-        "id": "32437950a6b8f993",
+        "id": "68a6556bfcb7e459",
         "type": "tabs",
         "children": [
           {
-            "id": "8d094234f9742c86",
+            "id": "f59270bf7868e9fd",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "网络与系统安全/第五章 网络边界与防护.md",
+                "file": "网络与系统安全/重点.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -117,19 +97,19 @@
             }
           },
           {
-            "id": "86e631092e81e959",
+            "id": "ccd853c716c5b367",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "网络与系统安全/第五章 网络边界与防护.md",
+                "file": "网络与系统安全/重点.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "4a914489b8d3f852",
+            "id": "d73c35a1f0590e36",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -140,79 +120,76 @@
             }
           },
           {
-            "id": "c5ef637dc1bfe16c",
+            "id": "d3e956e4e786f326",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "网络与系统安全/第五章 网络边界与防护.md"
+                "file": "网络与系统安全/重点.md"
               }
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 200,
+    "width": 300,
     "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false
     }
   },
-  "active": "683fbea3e3a3cebf",
+  "active": "338e7d86f0ffa985",
   "lastOpenFiles": [
+    "网络与系统安全/未命名 1.md",
+    "网络与系统安全/第六章  第七章 网络与系统权限管理.md",
+    "OS/思考题.md",
     "网络与系统安全/重点.md",
-    "网络与系统安全/第五章 网络边界与防护.md",
-    "网络与系统安全/未命名.md",
-    "体系结构/重点作业.md",
-    "网络与系统安全/第九章 第十章 入侵检测与响应.md",
+    "网络与系统安全/第十四章 自重构可信赖.md",
     "网络与系统安全/第十二章 拜占庭.md",
     "网络与系统安全/第十三章 门限密码学.md",
-    "网络与系统安全/第十四章 自重构可信赖.md",
-    "网络与系统安全/第六章  第七章 网络与系统权限管理.md",
+    "网络与系统安全/第十一章 数据备份与灾难恢复.md",
     "网络与系统安全/第八章 可信计算.md",
+    "网络与系统安全/第五章 网络边界与防护.md",
+    "网络与系统安全/第九章 第十章 入侵检测与响应.md",
     "网络与系统安全/第三章，第四章，访问控制.md",
     "网络与系统安全/第一章 第二章.md",
-    "Pasted image 20240111111423.png",
-    "Pasted image 20240111111413.png",
-    "Pasted image 20240111111401.png",
-    "Pasted image 20240110135712.png",
-    "体系结构/5-7章.md",
-    "Pasted image 20240110122119.png",
-    "Pasted image 20240110123429.png",
-    "Pasted image 20240110123421.png",
-    "Pasted image 20240110123329.png",
-    "Pasted image 20240110123302.png",
-    "Pasted image 20240110122951.png",
-    "体系结构",
+    "网络与系统安全/未命名.md",
+    "网络与系统安全/Pasted image 20240105161239.png",
+    "网络与系统安全/Pasted image 20240103154019.png",
+    "网络与系统安全/Pasted image 20240103154007.png",
+    "网络与系统安全/Pasted image 20240103110042.png",
+    "网络与系统安全/Pasted image 20240102195605.png",
+    "网络与系统安全/Pasted image 20240102195519.png",
+    "网络与系统安全/Pasted image 20240102194839.png",
+    "网络与系统安全/Pasted image 20240102194821.png",
+    "网络与系统安全/Pasted image 20240102141740.png",
+    "网络与系统安全/Pasted image 20240102135510.png",
     "网络与系统安全",
-    "第十三章 门限密码学.tmp",
-    "网络与系统安全/第十一章 数据备份与灾难恢复.md",
-    "操作系统/MIT 6.828 2022 LAB 6 COW 代码与debug分享.md",
-    "机器学习课程/4.DimentionReduction.md",
-    "操作系统/XV6_code.md",
-    "操作系统/SEC-TEE.md",
-    "1.花书总结/第二章 线性代数.md",
-    "机器学习课程/7.PGMIntro.md",
-    "操作系统",
-    "机器学习课程/12.HMM.md",
+    "机器学习课程/originVSdual.jpg:Zone.Identifier",
+    "机器学习课程/cheatsheet.md",
+    "机器学习课程/9.GMM.md",
     "机器学习课程/8.EM.md",
+    "机器学习课程/7.PGMIntro.md",
     "机器学习课程/6.Exponentialfamily.md",
-    "机器学习课程/10.VI.md",
     "机器学习课程/5.SVM.md",
-    "机器学习课程/2.LinearRegression.md",
-    "机器学习课程/originVSdual.jpg.crdownload",
-    "机器学习课程/MachineLearningNotes-master/pdf/cheatsheet.pdf",
-    "机器学习课程/MachineLearningNotes-master/pdf/9.GMM.pdf",
-    "机器学习课程/MachineLearningNotes-master/pdf/6.Exponentialfamily.pdf",
-    "机器学习课程/MachineLearningNotes-master/pdf/8.EM.pdf",
-    "机器学习课程/MachineLearningNotes-master/pdf/7.PGMIntro.pdf"
+    "机器学习课程/4.DimentionReduction.md",
+    "机器学习课程/3.LinearClassification.md",
+    "机器学习课程/23.ApproInference.md",
+    "机器学习课程/22.PartitionFunction.md",
+    "机器学习课程/21.NN.md",
+    "机器学习课程/20.Spectral.md",
+    "机器学习课程",
+    "操作系统",
+    "体系结构",
+    "obsidian.css",
+    "1.花书总结"
   ]
 }

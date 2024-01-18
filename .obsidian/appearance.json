@@ -1,7 +1,7 @@
 {
   "accentColor": "#eee5e2",
-  "textFontFamily": "Consolas,等线",
   "cssTheme": "Blue Topaz",
+  "textFontFamily": "Consolas,等线",
   "theme": "moonstone",
   "baseFontSize": 18
 }
