@@ -66,6 +66,8 @@ seL4_NBRecv()的wrapper
 
 ## IRQ_HANDLER
 
+### Set_NTFN
+
 static inline int `seL4_IRQHandler_SetNotification`
 
 Set the notification which the kernel will signal on interrupts controlled by the supplied
@@ -77,7 +79,22 @@ IRQ handler capability
 | seL4_IRQHandler |   _service   |         The IRQ handler capability.         |
 |    seL4_CPtr    | notification | The notification which the IRQs will signal |
 
-![irq_set_ntfn](E:\note\typora\irq_set_ntfn.png)
+![irq_set_ntfn](E:\note\typora\assets\irq_set_ntfn.png)
+
+上图中最后一个函数还将NTFN的cteslot登记在中断号对应的全局ntfn中断注册表中(intStateIRQNode)
+
+```c
+/* CNode containing interrupt handler endpoints - like all seL4 objects, this CNode needs to be
+ * of a size that is a power of 2 and aligned to its size. */
+extern cte_t intStateIRQNode[];//全局的数组，记录和中断绑定NTFN
+extern irq_state_t intStateIRQTable[];//全局的中断向量表
+```
+
+### seL4_IRQControl_Get()
+
+create an IRQ handler capability，把总的irqcontrolcap复制一份在本进程cnode指定位置
+
+![image-20240222163854131](E:\note\typora\assets\image-20240222163854131.png)
 
 ## TCB
 
@@ -104,9 +121,11 @@ Unbinds any notification object from a TCB
 
 ### 调用路径
 
-![ntfn](E:\note\typora\ntfn.png)
+![ntfn](E:\note\typora\assets\ntfn.png)
 
 在bind操作中，TCB的cptr通过`_service`传递，是syscall第一个参数，NTFN的cptr存在ipcbuffer中，在`handleinvocation`中调用`lookupExtraCaps`函数从ipcbuffer中解析出ntfn的cap并对全局变量`extra_caps_t current_extra_caps;`进行赋值
+
+# 中断流程
 
 
 

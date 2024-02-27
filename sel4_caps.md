@@ -15,13 +15,13 @@
 
 对用户来说，capabilities对内核对象直接在物理内存层面进行管理。
 
-![image-20231215155250577](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231215155250577.png)
+![image-20231215155250577](E:\note\typora\assets\image-20231215155250577.png)
 
 一个cnode包含了一个胖指针数组，每个胖指针都指向系统中的一个内核对象。
 
 capabilities本质上是一个access token，如下图所示
 
-![image-20231215161707913](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231215161707913.png)
+![image-20231215161707913](E:\note\typora\assets\image-20231215161707913.png)
 
 ## 解构CNODE
 
@@ -64,7 +64,7 @@ block mdb_node {
 
 一个cte图示，以untyped_cap为例
 
-![image-20231211145617913](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231211145617913.png)
+![image-20231211145617913](E:\note\typora\assets\image-20231211145617913.png)
 
 
 
@@ -74,7 +74,7 @@ block mdb_node {
 
 cnode_cap结构：`在代码实现中word[0]和word[1]是倒置的`
 
-![image-20231211142331643](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231211142331643.png)
+![image-20231211142331643](E:\note\typora\assets\image-20231211142331643.png)
 
 ```
 block cnode_cap(capCNodeRadix, capCNodeGuardSize, capCNodeGuard,
@@ -101,11 +101,11 @@ block cnode_cap(capCNodeRadix, capCNodeGuardSize, capCNodeGuard,
 
 在init_thread被创建的时候，其tcb_t内的cnode已经被初始化，部分初始化的cslot如下所示
 
-![image-20231212142421496](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231212142421496.png)
+![image-20231212142421496](E:\note\typora\assets\image-20231212142421496.png)
 
 **最开始Thread中CSPACE的布局，蓝色线是tutorial中第一个cnodecopy的操作**，包括cnode复制和mdb_node的赋值
 
-![image-20231212225704002](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231212225704002.png)
+![image-20231212225704002](E:\note\typora\assets\image-20231212225704002.png)
 
 > 对于一个thread来说，在初始化时tcb_t内自带一个cslot数组，部分slot被初始化为不同的cap。在第一个cslot中存放的是`tcbCTable`(ctable)，代表这个thread的Cspace root，是一个cnode_cap。这个cap中的cnode指向的cslot数组才是上述图中的initial thread's CNode content.
 
@@ -376,7 +376,7 @@ newmdb.word_0:0xffffff801fc00020,newmdb.word_1:0x0000000000000000
 
 ## untyped cap 布局
 
-![image-20231215110613207](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231215110613207.png)
+![image-20231215110613207](E:\note\typora\assets\image-20231215110613207.png)
 
 ## untyped retype
 
@@ -566,13 +566,13 @@ void cteInsert(cap_t newCap, cte_t *srcSlot, cte_t *destSlot)
 
 上面两个函数对mdb_node的操作实现了一个CDT(capability derivation tree)，CDT实现可视化：
 
-![image-20231215210136571](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231215210136571.png)
+![image-20231215210136571](E:\note\typora\assets\image-20231215210136571.png)
 
 
 
 untyped_retype流程图示：
 
-![image-20231215210258358](C:\Users\jetta\AppData\Roaming\Typora\typora-user-images\image-20231215210258358.png)
+![image-20231215210258358](E:\note\typora\assets\image-20231215210258358.png)
 
 三个棕色CNODE代表同一个进程的同一个cspace，
 
