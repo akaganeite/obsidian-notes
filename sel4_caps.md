@@ -688,7 +688,7 @@ static BOOT_CODE bool_t try_boot_sys_node(cpu_id_t cpu_id)
 
 6. 最终initrd在线性地址中占的空间为`0x400000-0x52a000`
 
-## `initrd的vspace`
+## `initrd的vspace`(以capabilities为例)
 
 ```c
 //boot.c::init_sys_state->
@@ -756,3 +756,18 @@ write_slot(SLOT_PTR(pptr_of_cap(root_cnode_cap), seL4_CapInitThreadVSpace), vspa
 
 ```
 
+在`copyGlobalMappings`之前，kernel页表状态如下图所示
+
+![mapping](E:\note\typora\assets\mapping.png)
+
+level2paging->16
+
+level3paging->17
+
+level4paging->18
+
+extra bootinfo->19
+
+userland_image_frames->20-314
+
+![image-20240229232436276](E:\note\typora\assets\image-20240229232436276.png)
