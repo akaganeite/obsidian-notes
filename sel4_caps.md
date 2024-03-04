@@ -15,13 +15,13 @@
 
 对用户来说，capabilities对内核对象直接在物理内存层面进行管理。
 
-![image-20231215155250577](E:\note\typora\assets\image-20231215155250577.png)
+![image-20231215155250577](./assets/image-20231215155250577.png)
 
 一个cnode包含了一个胖指针数组，每个胖指针都指向系统中的一个内核对象。
 
 capabilities本质上是一个access token，如下图所示
 
-![image-20231215161707913](E:\note\typora\assets\image-20231215161707913.png)
+![image-20231215161707913](./assets/image-20231215161707913.png)
 
 ## 解构CNODE
 
