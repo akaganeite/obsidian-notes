@@ -6,7 +6,7 @@
 
 # IPC通过`endpoints`进行握手
 
-<img src="E:\note\typora\assets\image-20231116103411112.png" alt="image-20231116103411112" style="zoom:80%;" />
+<img src="./assets/image-20231116103411112.png" alt="image-20231116103411112" style="zoom:80%;" />
 
 - 信息通过`message registers`传递
 - seL4允许在同一个endpoint使用不同的badge(标记)，用Mint（）方法进行标记，
@@ -62,13 +62,13 @@ seL4_CNode_Copy->seL4CallwithMRs-><plat>_sys_send_recv->handleSyscall->handleInv
 
   - cte(capability table entry),就是cnode中的一个slot，包含cap_t和mdb_node_t.`CNode[cptr] = CTE`,`*slot = CTE`.
 
-<img src="E:\note\typora\assets\image-20231117215001268.png" alt="image-20231117215001268" style="zoom:67%;" />
+<img src="assets/image-20231117215001268.png" alt="image-20231117215001268" style="zoom:67%;" />
 
 - cteInsert是这个系统调用最核心的函数，对cnode的一个slot进行复制
 
   - `mdb_node_ptr_set_mdbNext`,`mdb_node_ptr_set_mdbPrev`是用于构建CDT tree，内核用这棵CDT来管理cap的继承关系
 
-    <img src="E:\note\typora\assets\image-20231117225723549.png" alt="image-20231117225723549" style="zoom:80%;" />
+    <img src="./assets\image-20231117225723549.png" alt="image-20231117225723549" style="zoom:80%;" />
 
 ```c
 void cteInsert(cap_t newCap, cte_t *srcSlot, cte_t *destSlot)
