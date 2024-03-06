@@ -1,5 +1,7 @@
 - [ ] openfaas架构
 - [ ] ntfn mail list
-- [ ] 问师兄怎么看microkit的code
+- [ ] main.py初始化流程大致梳理
 - [ ] sel4 相关论文
 - [ ] Nats 架构和原理
+- [ ] 自己写一个systemxml，跑
+- [ ] 编译SDK
