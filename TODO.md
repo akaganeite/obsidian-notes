@@ -1,8 +1,8 @@
-- [ ] openfaas架构
 - [ ] ntfn mail list
-- [ ] main.py初始化流程大致梳理
 - [x] main.py初始化流程大致梳理
-- [ ] sel4 相关论文
+- [x] main.py初始化流程大致梳理
+- [ ] sel4 相关论文(from L3 to L4)
 - [ ] Nats 架构和原理
 - [ ] 自己写一个systemxml，跑
 - [x] 编译SDK
+- [ ] TREESLS
