@@ -5,3 +5,4 @@
 - [ ] Nats 架构和原理
 - [ ] 自己写一个systemxml，跑
 - [ ] 编译SDK
+- [ ] 看sel4boot时如何create untyped，untyped有没有被map
