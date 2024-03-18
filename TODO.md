@@ -1,8 +1,6 @@
 - [ ] ntfn mail list
-- [x] main.py初始化流程大致梳理
-- [x] sel4 相关论文(from L3 to L4)
-- [ ] Nats 架构和原理
 - [ ] 自己写一个systemxml，跑
-- [x] 编译SDK
 - [ ] TREESLS
-- [x] untyped-retype源码
+- [ ] boot和初始内存分配源码
+- [ ] gdb调试sel4
+- [ ] sel4test编译
