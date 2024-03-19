@@ -47,3 +47,12 @@ processsub
 
 - 创建一个subscription
 - 加入全局和局部sublist
+
+# 协议解析
+
+![image-20240314162120309](./assets/image-20240314162120309.png)
+
+# 订阅处理
+
+# 消息存储
+
