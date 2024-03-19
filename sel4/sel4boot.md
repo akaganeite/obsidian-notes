@@ -1,5 +1,13 @@
 # 系统启动流程
 
+## RISCV common_riscv.lds
+
+
+
+
+
+
+
 ## head.S
 
 `_start`:内核入口函数->`_start64`->`_entry_64`->boot_sys->c_boot_sys
