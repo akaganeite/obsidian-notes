@@ -1,6 +1,6 @@
 # microkit架构
 
-![image-20240307191857638](./assets/image-20240307191857638.png)
+![image-20240307191857638](../assets/image-20240307191857638.png)
 
 - Init task是monitor.elf
 - 每个pd的elf对应一个c的文件，组织结构在xml文件中
