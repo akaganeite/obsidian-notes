@@ -76,3 +76,10 @@ for address, size in post_failure_reads:
 
 ```
 
+```python
+class CrashImage:
+    img: bytes
+    post_recovery_dump: Optional[PostRecoveryDump] = None
+    ...
+```
+

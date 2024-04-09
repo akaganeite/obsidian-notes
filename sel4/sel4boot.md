@@ -2,7 +2,9 @@
 
 ## RISCV common_riscv.lds
 
+## risk->head.s
 
+声明`__start`,跳转到boot.c中的`init_kernel`
 
 
 
