@@ -4,7 +4,76 @@
 
 ## risk->head.s
 
-声明`__start`,跳转到boot.c中的`init_kernel`
+声明`__start`
+
+arch-riscv:boot.c:main->运行elf loader，load kernel，转至init_kernel函数
+
+`init_kernel`->`try_init_kernel`->`
+
+```
+
+   The top half of the address space is reserved for the kernel. This means that 256 top level
+   entries are for the user, and 256 are for the kernel. This will be further split into the
+   'regular' kernel window, which contains mappings to physical memory, a small (1GiB) higher
+   kernel image window that we use for running the actual kernel from and a top 1GiB window for
+   kernel device mappings. This means that between PPTR_BASE and
+   KERNEL_ELF_BASE there are 254 entries remaining, which represents how much physical memory
+   can be used.
+  
+   Almost all of the top 256 kernel entries will contain 1GiB page mappings. The only 2 entries
+   that contain a 2nd level PageTable consisting of 2MiB page entries is the entry
+   for the 1GiB Kernel ELF region and the 1GiB region corresponding to the physical memory
+   of the kernel ELF in the kernel window.  The same 2nd level PageTable is used and so both
+   entries refer to the same 1GiB of physical memory.
+   This means that the 1GiB kernel ELF mapping will correspond to physical memory with a 1GiB
+   alignment.
+  
+                     +-----------------------------+ 2^64
+                     |        Kernel Devices       |
+                  -> +-------------------KDEV_BASE-+ 2^64 - 1GiB
+                  |  |         Kernel ELF          |
+              ----|  +-------------KERNEL_ELF_BASE-+ --+ 2^64 - 2GiB + (KERNEL_ELF_PADDR_BASE % 1GiB)
+              |   |  |                             |
+              |   -> +-----------------------------+ --+ 2^64 - 2GiB = (KERNEL_ELF_BASE % 1GiB)
+   Shared 1GiB|      |                             |   |
+   table entry|      |           PSpace            |   |
+              |      |  (direct kernel mappings)   |   +----+
+              ------>|                             |   |    |
+                     |                             |   |    |
+                     +-------------------PPTR_BASE-+ --+ 2^64 - 2^b
+                     |                             |        |         +-------------------------+
+                     |                             |        |         |                         |
+                     |                             |        |         |                         |
+                     |          Invalid            |        |         |                         |
+                     |                             |        |         |           not           |
+                     |                             |        |         |         kernel          |
+                     |                             |        |         |       addressable       |
+                     +--------------------USER_TOP-+  2^c   |         |                         |
+                     |                             |        |         |                         |
+                     |                             |        |         |                         |
+                     |                             |        |      +- --------------------------+  PADDR_TOP =
+                     |                             |        |      |  |                         |    PPTR_TOP - PPTR_BASE
+                     |                             |        |      |  |                         |
+                     |                             |        |      |  |                         |
+                     |            User             |        |      |  |                         |
+                     |                             |        |      |  |                         |
+                     |                             |        +------+  +-------------------------+  KDEV_BASE - KERNEL_ELF_BASE + PADDR_LOAD
+                     |                             |     kernel    |  |        Kernel ELF       |
+                     |                             |   addressable |  +-------------------------+  KERNEL_ELF_PADDR_BASE
+                     |                             |               |  |                         |
+                     |                             |               |  |                         |
+                     +-----------------------------+  0            +- +-------------------------+  0 PADDR_BASE
+  
+                        virtual address space                          physical address space
+  
+  
+    c = one less than number of bits the page tables can translate
+      = sign extension bit for canonical addresses
+      (= 47 on x64, 38 on RISCV64 sv39, 47 on RISCV64 sv48)
+    b = The number of bits used by kernel mapping.
+      = 38 (half of the 1 level page table) on RISCV64 sv39
+      = 39 (entire second level page table) on aarch64 / X64 / sv48
+```
 
 
 

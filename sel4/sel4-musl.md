@@ -231,7 +231,7 @@ struct vspace {
 
 ### sel4utils_alloc_data_t
 
-`vspace_mid_level_t`是页表的数组实现
+`vspace_mid_level_t`，页表的数组实现，vspace的镜像
 
 ```c
 typedef struct sel4utils_alloc_data {
