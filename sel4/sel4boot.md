@@ -1,81 +1,56 @@
 # 系统启动流程
 
-## RISCV common_riscv.lds
+## RISCV:DRAM-VRAM SPACE
 
-## risk->head.s
+![image-20240413130733876](./assets/image-20240413130733876.png)
 
-声明`__start`
+| 区域         | 虚拟地址起点                        | 物理地址起点 |
+| ------------ | ----------------------------------- | ------------ |
+| 直接映射区域 | 0xFFFFFFC000000000(PPTR_BASE)       | 0            |
+| 内核 ELF     | 0xFFFFFFFF84000000(KERNEL_ELF_BASE) | 0x84000000   |
+| 内核设备     | 0xFFFFFFFFC0000000                  | 无           |
 
-arch-riscv:boot.c:main->运行elf loader，load kernel，转至init_kernel函数
 
-`init_kernel`->`try_init_kernel`->`
 
+## freemem_init
+
+- 入参：
+
+```c
+kernel-virtual memory:
+it_v_reg:0x10000,0x3d9000
+physical memory addresses of dtb:
+dtb_p_reg:0x84020000,0x84020425
+user-virtual addresses:
+ui_reg:0xffffffc084021000,0xffffffc0843e7000
 ```
 
-   The top half of the address space is reserved for the kernel. This means that 256 top level
-   entries are for the user, and 256 are for the kernel. This will be further split into the
-   'regular' kernel window, which contains mappings to physical memory, a small (1GiB) higher
-   kernel image window that we use for running the actual kernel from and a top 1GiB window for
-   kernel device mappings. This means that between PPTR_BASE and
-   KERNEL_ELF_BASE there are 254 entries remaining, which represents how much physical memory
-   can be used.
-  
-   Almost all of the top 256 kernel entries will contain 1GiB page mappings. The only 2 entries
-   that contain a 2nd level PageTable consisting of 2MiB page entries is the entry
-   for the 1GiB Kernel ELF region and the 1GiB region corresponding to the physical memory
-   of the kernel ELF in the kernel window.  The same 2nd level PageTable is used and so both
-   entries refer to the same 1GiB of physical memory.
-   This means that the 1GiB kernel ELF mapping will correspond to physical memory with a 1GiB
-   alignment.
-  
-                     +-----------------------------+ 2^64
-                     |        Kernel Devices       |
-                  -> +-------------------KDEV_BASE-+ 2^64 - 1GiB
-                  |  |         Kernel ELF          |
-              ----|  +-------------KERNEL_ELF_BASE-+ --+ 2^64 - 2GiB + (KERNEL_ELF_PADDR_BASE % 1GiB)
-              |   |  |                             |
-              |   -> +-----------------------------+ --+ 2^64 - 2GiB = (KERNEL_ELF_BASE % 1GiB)
-   Shared 1GiB|      |                             |   |
-   table entry|      |           PSpace            |   |
-              |      |  (direct kernel mappings)   |   +----+
-              ------>|                             |   |    |
-                     |                             |   |    |
-                     +-------------------PPTR_BASE-+ --+ 2^64 - 2^b
-                     |                             |        |         +-------------------------+
-                     |                             |        |         |                         |
-                     |                             |        |         |                         |
-                     |          Invalid            |        |         |                         |
-                     |                             |        |         |           not           |
-                     |                             |        |         |         kernel          |
-                     |                             |        |         |       addressable       |
-                     +--------------------USER_TOP-+  2^c   |         |                         |
-                     |                             |        |         |                         |
-                     |                             |        |         |                         |
-                     |                             |        |      +- --------------------------+  PADDR_TOP =
-                     |                             |        |      |  |                         |    PPTR_TOP - PPTR_BASE
-                     |                             |        |      |  |                         |
-                     |                             |        |      |  |                         |
-                     |            User             |        |      |  |                         |
-                     |                             |        |      |  |                         |
-                     |                             |        +------+  +-------------------------+  KDEV_BASE - KERNEL_ELF_BASE + PADDR_LOAD
-                     |                             |     kernel    |  |        Kernel ELF       |
-                     |                             |   addressable |  +-------------------------+  KERNEL_ELF_PADDR_BASE
-                     |                             |               |  |                         |
-                     |                             |               |  |                         |
-                     +-----------------------------+  0            +- +-------------------------+  0 PADDR_BASE
-  
-                        virtual address space                          physical address space
-  
-  
-    c = one less than number of bits the page tables can translate
-      = sign extension bit for canonical addresses
-      (= 47 on x64, 38 on RISCV64 sv39, 47 on RISCV64 sv48)
-    b = The number of bits used by kernel mapping.
-      = 38 (half of the 1 level page table) on RISCV64 sv39
-      = 39 (entire second level page table) on aarch64 / X64 / sv48
-```
+- res_reg:
+
+  `[0]:kernel_image->0xffffffc084000000-0xffffffc084020000`
+
+  `[1]:dtb_p_reg   ->0xffffffc084020000-0xffffffc084020425`
+
+  `[2]:ui_reg      ->0xffffffc084021000-0xffffffc0843e7000`
+
+- avail_reg:
+
+  `[0]               0xffffffc080200000-0xffffffc17ff00000`
+
+(gdb) p /x ndks_boot
+$2 = {reserved = {{start = 0x2000000, end = 0x2200000}, {start = 0x80200000, end = 0x17ff00000}, {start = 0x0,
+      end = 0x0} <repeats 18 times>}, resv_count = 0x2, freemem = {{start = 0xffffffc080200000,
+      end = 0xffffffc084000000}, {start = 0xffffffc084020425, end = 0xffffffc084021000}, {start = 0xffffffc0843e7000,
+      end = 0xffffffc17fe80000}, {start = 0xffffffc17fec8400, end = 0xffffffc17ff00000}, {start = 0x0,
+      end = 0x0} <repeats 12 times>}, bi_frame = 0xffffffc17fec4000, slot_pos_cur = 0x3da}
 
 
+
+
+
+
+
+------
 
 
 

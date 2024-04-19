@@ -54,5 +54,94 @@ processsub
 
 # 订阅处理
 
-# 消息存储
+# NATS client 
+
+## CLASS
+
+### Connection
+
+- 定义
+
+```rust
+pub struct Connection<S: ConnectionState> {
+    options: Options,
+    state: S,
+}
+
+pub struct Options {
+    auth: AuthStyle,
+    name: Option<String>,
+    no_echo: bool,
+}
+```
+
+- 实现
+
+```rust
+pub fn with_name(mut self, name: &str) #为options.name赋值name
+pub fn no_echo(mut self) #设置options.no_echo=true
+
+#not_connected
+pub fn new() -> Connection<NotConnected> #新建connection，状态未连接，其他为空
+pub fn with_token(self, token: &str) -> Connection<Authenticated> #新建一个Connection，状态转为authenticated
+pub fn with_user_pass(self, user: &str, password: &str) -> Connection<Authenticated>#另一种auth方式
+```
+
+
+
+# NATS server
+
+## 启动
+
+- server.New()
+
+  - server
+
+    ```go
+    type Server struct {
+    	info     info
+    	infoJson []byte
+    	sl       *sublist.Sublist//空的trie，后续要用到
+    	gcid     uint64
+    }
+    ```
+
+    
+
+- AcceptLoop（）
+
+  - 循环监听`TCP连接请求`，来一个消息创建一个client处理消息:s.createClient
+
+- createClient（）
+
+  - 创建client实例
+
+    ```go
+    type client struct {
+    	mu   sync.Mutex
+    	cid  uint64//server的第n个client
+    	opts clientOpts
+    	conn net.Conn
+    	bw   *bufio.Writer
+    	br   *bufio.Reader
+        srv  *Server://调用的server的地址
+    	subs *hashmap.HashMap//空
+    	cstats
+    	parseState
+    }
+    ```
+
+  - go c.readLoop()，创建goroutine，实现并发
+
+- readLoop()
+
+  - 循环监听`TCP连接上的消息`，调用parse函数解析消息
+
+- 后面进入消息解析与处理部分
+
+​	
+
+
+
+
 

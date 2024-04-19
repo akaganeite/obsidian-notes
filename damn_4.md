@@ -23,3 +23,29 @@
 8. How high are Chinese exports  now
 9. How many brothers ans sisters do you have?
 10. How are you feeling today?
+
+# FSE 11
+
+1. What time was it when you finished your homework lats night?
+2. Which teacher's from Newyork and whic ones from Colorado?
+3. Whose parents are coming to visit next year?
+4. Who's leading soon for the state?
+5. which teacher's books did you find?
+6. What holiday's coming up soon?
+7. What kind of tea do most americans like best?
+8. What make cars most popular in Singapore?
+9. What type of exams are hardest for Chinese students?
+10. What color of shirts  most common in beijing?
+
+# FSE 12
+
+1. He needs some information and a lot of advise.
+2. They have lots of knowledge but not much wisdom.
+3. Everyone needs a bit of recreation each day but i never get much.
+4. She asked for a little help with her english but i don't know how much wants.
+5. there are very few businesses there that do much business with America.
+6. She needs change for her dollar.
+7. China has seen many changes in the past few years.
+8. We have only few books so take care of them.
+9. China make a lot of glass and much of it has very high quality.
+10. Did you want some paper or a paper to read.

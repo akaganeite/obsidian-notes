@@ -39,6 +39,14 @@ static inline void x64_sys_send_null(seL4_Word sys, seL4_Word dest, seL4_Word in
 }
 ```
 
+- ntfn=idle
+  - 检查这个ntfn有无绑定线程，有的话判断tcb状态，如果是`ThreadState_BlockedOnReceive`直接修改绑定线程的tcb,否则设置ntfn为`active`
+- ntfn=wait
+  - 有tcb等在这个ntfn的queue上
+  - 摘取queue.head唤醒(设置线程状态，设置tcb寄存器，调用possibleswitchto->设置本线程为调度预选)
+- ntfn=active
+  - 拼接badge
+
 ### WAIT
 
 LIBSEL4_INLINE_FUNC void seL4_Wait
@@ -55,6 +63,13 @@ Sel4-Recv的wrapper
 #### 调用路径
 
 `handleRecv`(syscall.c)->`receiveSignal`(notification.c)
+
+- idle|wait：目前没有ntfn
+  - 判断是否block(由入参决定)，若是，阻塞本线程，加入ntfn_queue队尾
+  - 若不是，设置本线程tcb的`badgeregister`=0
+- active:
+  - 写自己的tcb的badgeregister为msgidentifier(signal时拼接的多个badge)
+  - ntfn状态设置为idle
 
 ### POLL
 
