@@ -1,22 +1,47 @@
 - [ ] ntfn mail list
+
 - [ ] 自己写一个systemxml，跑
+
 - [ ] TREESLS
-- [x] boot和初始内存分配源码
-- [x] map_page源码
-- [x] nats-rust学习，跑
-- [x] 三种模式的服务器端实现路径，重点是request/reply
+
 - [ ] sel4中断以及线程ntfn绑定的工作流程
+
 - [x] 查看ntfn以及endpoint可以承载的最大消息量
+
 - [x] server的启动流程，重点关注数据存储，通信机制和并发
+
 - [x] client工作流程
+
 - [ ] 了解mailbox的具体实现
-- [ ] camkes是否支持在运行时创建线程
+
+- [ ] cantrip一个component怎么启动的，相互之间如何通信
+
+- [x] camkes是否支持在运行时创建线程-应该是不支持
+
+- [x] NATS的client和server分别如何工作，三种工作模式的实现路径
+
+- [ ] memory manager源码
+
+  
 
 
 
 
 
 # 问题
+
+## server
+
+- subscription在cantrip中由什么代替
+- server.client扮演什么角色
+
+## client
+
+- 完成任务的client是component吗？是component 
+- mailbox作为一个client，在初始化时订阅全部任务相关的sublist？
+- 完成特定任务的app在初始化时等待
+
+
 
 - [ ] 是否需要PUB/SUB类型的通信方式
 - [ ] 一个任务类型(sublist)是否只有一个线程订阅，相应的，队列组是否需要
@@ -40,4 +65,6 @@
 - ntfn无法携带除badge外的额外信息，可以使用endpoint传递信息(RPC)
 
   - ntfn的badge如何更好的使用？
+- server和client的通信，使用一个多对一的通信？
+  - server在run函数中轮询检查
 

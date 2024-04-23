@@ -14,7 +14,7 @@
 
 - `system.camkes` is the toplevel CAmkES Assembly, that defines which components exist in the entire system, and which components speak to which other components.
 - 在代码中system.camkes为每一种架构一个，在system/platforms下
-- /interfaces定义每个组件对外开放的接口
+- /interfaces定义每个组件对外开放的接口，camkes中的interface，由ntfn实现
 
 ## sel4_sys
 
@@ -69,6 +69,12 @@ arch/syscall_commmon:定义系统调用接口，具体实现有不同架构的.r
 │           │   ├── smp.rs
 │           │   └── spill_tcb_args.rs
 │           └── mod.rs
+
+## proc-manager相关的线程
+
+- process_manager:control_thread
+- proc_ctrl:interface_thread,用于component间通信
+- pkg_mgmt:interface_thread，同上
 
 ### proc-manager-component/run.rs
 
@@ -297,7 +303,7 @@ impl<T: CamkesThreadInterface> CamkesThreadStart for T {
 
 ## 以start为例
 
-> 在syscall之前的调用链虽然在proc-manager文件中，但其实是属于debug-console相关thread在运行的代码，在syscall后recv端是`ProcCtrlInterfaceThread`的代码，负责加载运行一个新的app。console和皮肉从manager间的通讯以一个endpoint连接，在camkes中被声明为一个connection。
+> 在syscall之前的调用链虽然在proc-manager文件中，但其实是属于debug-console相关thread在运行的代码，在syscall后recv端是`ProcCtrlInterfaceThread`的代码，负责加载运行一个新的app。console和procmanager间的通讯以一个endpoint连接，在camkes中被声明为一个RPCconnection。
 
 - DebugConsole/cantrip-shell/src/lib.rs
 

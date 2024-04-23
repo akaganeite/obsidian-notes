@@ -52,6 +52,10 @@ processsub
 
 ![image-20240314162120309](./assets/image-20240314162120309.png)
 
+![image-20240422150739115](./assets/image-20240422150739115.png)
+
+NATS client如何与server交互
+
 # 订阅处理
 
 # NATS client 
@@ -106,8 +110,6 @@ pub fn with_user_pass(self, user: &str, password: &str) -> Connection<Authentica
     }
     ```
 
-    
-
 - AcceptLoop（）
 
   - 循环监听`TCP连接请求`，来一个消息创建一个client处理消息:s.createClient
@@ -139,9 +141,84 @@ pub fn with_user_pass(self, user: &str, password: &str) -> Connection<Authentica
 
 - 后面进入消息解析与处理部分
 
-​	
+  - SUB：创建subscription实例并插入client本地subs与srv.sl
+
+    ```go
+    type subscription struct {
+    	client  *client//server创建的client
+    	subject []byte//sublist名
+    	queue   []byte//是否有队列
+    	sid     []byte
+    	nm      int64
+    	max     int64
+    }
+    ```
+
+  - PUB:在srv.sl查找所有符合传入sublist的`subscription`实例，依次发送消息。`subscription`存有订阅方与server连接实例`client`的指针，通过访问该`client`的`client.bw.Write`方法传递消息
+
+- REQUEST/REPLY部分的特殊操作
+
+  - processMSG时，在消息头加入reply属性
+
+    ```go
+    if c.pa.reply != nil {
+    		mh = append(mh, c.pa.reply...)
+    		mh = append(mh, ' ')
+    	}
+    ```
+
+  - 若有queue_group，则随机选择(两个sub在同一个qsubs的前提是订阅同一个sublist)
+
+    ```go
+    	if len(qsubs) > 0 {
+    		index := rand.Int() % len(qsubs)
+    		sub := qsubs[index]
+    		mh := c.msgHeader(msgh[:si], sub)
+    		sub.deliverMsg(mh, msg)
+    	}
+    ```
+
+    
 
 
+# NATS Client
+
+- 与指定的服务器建立连接
+
+- 根据用户输入的命令执行相应操作
+
+  - PUB：调用`write_pub_msg`向server缓冲区写入要发布的消息，
+
+    - 一般情况：`"PUB {} {}\r\n", subj, msgb.len()`,消息与长度
+    - request情况：`"PUB {} {} {}\r\n", subj, reply, msgb.len()`,消息，reply与长度
+
+  - SUB：SUB操作不支持sub_queue,仅向server缓冲区写入消息
+
+    - 返回client端的subscription对象
+
+      ```rust
+      pub struct Subscription {
+          sid: usize,//订阅时生成
+          recv: Receiver<Message>,//用于接收PUB消息
+          subs: Arc<RwLock<HashMap<usize, Sender<Message>>>>,//订阅列表
+          writer: Arc<Mutex<Outbound>>,//用于回复消息
+      }
+      ```
+
+    - 监听recv，有消息传入执行相应操作
+
+  - REQUEST：带有reply属性的PUB操作
+
+    - reply属性是自动创建的sublist,`"_INBOX.{}.{}"`
+    - 订阅该sublist，`self.subscribe(&reply)`
+    - 和PUB一样，调用`write_pub_msg`
+
+  - REPLY：带有queue属性的SUB操作，若多个client属于一个queuegroup且订阅同一个sublist，那么在该消息时会随机选择一个client传递消息
+
+    - 存储用户预先设置的回复文本:`resp`
+    - 同SUB操作一致，在向server发送的消息中多一个queue属性
+    - 监听recv，等待消息传入，
+    - 调用`respond`函数向request的client发送`resp`,发送的sublist为request_client生成的reply，
 
 
 
