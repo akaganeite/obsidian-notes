@@ -65,6 +65,8 @@
 - ntfn无法携带除badge外的额外信息，可以使用endpoint传递信息(RPC)
 
   - ntfn的badge如何更好的使用？
-- server和client的通信，使用一个多对一的通信？
-  - server在run函数中轮询检查
+- server和client的通信，使用一个多对一的通信
+  - 在camkes中使用cantripRPCCall声明
+  - server和每个client都要用两个ep进行通信？
+  - Server调用rpc_shared_recv!,被唤醒后调用dispatch，用状态机处理请求
 
