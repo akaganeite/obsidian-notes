@@ -56,6 +56,8 @@ processsub
 
 NATS client如何与server交互
 
+![image-20240424141720271](./assets/image-20240424141720271.png)
+
 # 订阅处理
 
 # NATS client 
@@ -93,11 +95,11 @@ pub fn with_user_pass(self, user: &str, password: &str) -> Connection<Authentica
 
 
 
-# NATS server
+# NATS事件驱动架构工作流程
 
-## 启动
+## NATS server
 
-- server.New()
+- server.New()，实例化一个server类
 
   - server
 
@@ -110,7 +112,7 @@ pub fn with_user_pass(self, user: &str, password: &str) -> Connection<Authentica
     }
     ```
 
-- AcceptLoop（）
+- AcceptLoop(),调用类方法
 
   - 循环监听`TCP连接请求`，来一个消息创建一个client处理消息:s.createClient
 

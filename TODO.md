@@ -14,9 +14,7 @@
 
 - [ ] 了解mailbox的具体实现
 
-- [ ] cantrip一个component怎么启动的，相互之间如何通信
-
-- [x] camkes是否支持在运行时创建线程-应该是不支持
+- [ ] component怎么启动流程·，ctrl->interface
 
 - [x] NATS的client和server分别如何工作，三种工作模式的实现路径
 
@@ -60,13 +58,55 @@
   - NATS：如果有多个client注册了reply消息，那么只有一个client会被server选中，发送回复
 
 
+
+
+
+
+
+
 # 实现细节
 
-- ntfn无法携带除badge外的额外信息，可以使用endpoint传递信息(RPC)
+- nats的server端会为每一个client的连接创建一个goroutine(轻量级线程)；cantrip中一个connection对应一个interfacethread.
+- mailbox发送消息，经由server解析并分发给完成具体任务的线程，任务完成后线程发送消息，经由server传递给mailbox
+- client向server通信，使用一个多对一的通信(RPCCall),由server提供
+  - from-clients to-server，多生产者，单消费者
+  - server使用状态机处理请求
+    - SUB：更新sublist
+    - PUB：查找订阅sublist的线程，并转发消息
+  - server收到消息，解析出目的component，直接转发
+    - 以ima为例，server收到mailbox发来的`PUB ima MSG`消息，直接使用`rpc_basic_send!(ima,...)`即可传递消息，ima为camkes中声明的conection
+- server向client通信，一对一通信，由client提供，camkes中声明的
+  - client负责通信的interfacethread调用rpc_basic_recv
+  - server在解析到PUB消息时向对应的client调用rpc_basic_send，以预先约定的格式传递信息
+  - client.interfacethread收到消息后执行任务，任务完成后发送消息给server
 
-  - ntfn的badge如何更好的使用？
-- server和client的通信，使用一个多对一的通信
-  - 在camkes中使用cantripRPCCall声明
-  - server和每个client都要用两个ep进行通信？
-  - Server调用rpc_shared_recv!,被唤醒后调用dispatch，用状态机处理请求
+- PUB或SUB的消息由rpc_basic_buffer传递
 
+
+
+# 问题
+
+- sublist
+  - NATS使用sublist可以存储并快速定位一个订阅队列，向队列中的每一个client发送消息
+  - cantrip的component间通信使用一endpoint为基础的RPCCall，server无需sublist，可以直接根据mailbox发来的任务信息定位相关endpoint并与目标component通信
+- 消息类型
+  - SUB类型消息：cantrip中完成特定任务的component是确定的。以完整性度量为例，该component在camkes中声明与server通信的RPCCall类型connection，建立用于通信的endpoint。那么就无需向server发送如SUB ima这样的消息，server收到mailbox发来的ima请求时直接通过camkes约定好的ep进行消息传递即可。
+  - 同样，一个endpoint支持的RPCCall是单向的，不同endpoint上的通信可以区分消息类型，无需PUB类型的消息
+
+
+# 实现
+
+- nats的server端会为每一个client的连接创建一个goroutine(轻量级线程)；cantrip中一个connection对应一个interfacethread.
+- mailbox发送消息，经由server解析并分发给完成具体任务的线程，任务完成后线程发送消息，经由server传递给mailbox
+- server向client分发事件，一对一通信，由client提供，每个client都与server通过一个RPCCall通信
+  - client负责通信的interfacethread调用rpc_basic_recv
+  - server在解析到PUB消息时向对应的client调用rpc_basic_send，以预先约定的格式传递信息
+  - client.interfacethread收到消息后执行任务，任务完成后发送消息给server
+- server接收client发来的事件，使用一个多对一的通信(RPCCall),由server提供
+  - from-clients to-server，多生产者，单消费者
+  - server使用状态机处理请求
+    - SUB：更新sublist
+    - PUB：查找订阅sublist的线程，并转发消息
+  - server收到消息，解析出目的component，直接转发
+    - 以ima为例，server收到mailbox发来的`ima MSG`消息，直接使用`rpc_basic_send!(ima,...)`即可传递消息，ima为camkes中声明的conection
+- rpc_basic_buffer传递消息
