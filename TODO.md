@@ -18,13 +18,19 @@
 
 - [x] NATS的client和server分别如何工作，三种工作模式的实现路径
 
-- [ ] memory manager源码
+- [ ] memory manager
 
-  
+------
 
+isolation,tock based
 
+访问控制
 
+------
 
+fs 驱动 共享内存通信 
+
+shadow thread：共享内存映射到shadow thread
 
 # 问题
 
