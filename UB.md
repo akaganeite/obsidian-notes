@@ -18,6 +18,26 @@
 
 [Rust竟然没有异常处理？ - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/183193931)
 
+
+
+
+
+
+
+
+
+simple channel
+
+https://github.com/NamiLiy/Theseus/commit/4f370d1ee29552f5d4e121f67e0b2f07200fdb43
+
+fault injection
+
+https://github.com/NamiLiy/Theseus/blob/fault_injection_artifacts/osdi20ae/fault_injection/README.md
+
+unwinding现存的一个问题
+
+https://github.com/theseus-os/Theseus/issues/199
+
 # Panic路径
 
 ## core_lib/panicking.rs

@@ -11,3 +11,12 @@ zhangxb/20010422
 [/ - Files - File Browser](http://192.168.2.204:8080/files/)
 
 admin/admin
+
+
+
+
+
+## orangepi_ip
+
+- dom:192.168.2.204
+- home:192.168.31.161
