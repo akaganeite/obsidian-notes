@@ -6,11 +6,16 @@
 cmake ccache ninja-build cmake-curses-gui libxml2-utils ncurses-dev curl git doxygen device-tree-compiler u-boot-tools python3-dev python3-pip python-is-python3 protobuf-compiler python3-protobuf
 ```
 
+## git
+
+https://github.com/jesseduffield/lazygit
+https://www.youtube.com/watch?v=CPLdltN7wgE&ab_channel=JesseDuffield
 
 
 
+## ubuntu/clash-dashboard
 
-
+[192.168.104.61:9090 - yacd](http://192.168.104.61:9090/ui/#/proxies)
 
 
 
@@ -39,3 +44,30 @@ cmake ccache ninja-build cmake-curses-gui libxml2-utils ncurses-dev curl git dox
 ## rust配置工具链
 
 [[Rust\] 嵌入式 riscv64 Rust 开发环境搭建_risc rust-CSDN博客](https://blog.csdn.net/wangyijieonline/article/details/130363131)
+
+
+
+## readelf&&objdump
+
+## rustc target
+
+[Creating a custom target - The Embedonomicon (rust-embedded.org)](https://docs.rust-embedded.org/embedonomicon/custom-target.html)
+
+
+
+1. get rid of feature panic-handler, print, and system-alloc, we have our own implementation
+2. keep only 'fde-static and' 'fde-gnu-eh-frame-hdr' feature, these two options are enough for unwinding
+3. keep all the arch related code,modify 
+4. Implement backtrace which will print the PC val of each call stack 
+5. add unwind_test in cfg(kernel_test)
+
+
+
+unwind: fork the open source lib 'unwinding'
+
+1.open source repo:https://github.com/nbdd0121/unwinding.git
+2.this commit forks the src/ dir of the repo
+3.our unwinding code is based on this repo
+
+Signed-off-by xiaobei zhang <zhangxiaobei@iie.ac.cn>
+
