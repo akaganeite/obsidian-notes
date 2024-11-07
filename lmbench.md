@@ -5,9 +5,9 @@ lmbench_musl lat_syscall -P 1 read✅
 lmbench_musl lat_syscall -P 1 write✅
 busybox mkdir -p /var/tmp 
 busybox touch /var/tmp/lmbench
-lmbench_musl lat_syscall -P 1 stat /var/tmp/lmbench ✅
-lmbench_musl lat_syscall -P 1 fstat /var/tmp/lmbench ✅
-lmbench_musl lat_syscall -P 1 open /var/tmp/lmbench ✅
+lmbench_musl lat_syscall -P 1 stat hello ✅
+lmbench_musl lat_syscall -P 1 fstat hello ✅
+lmbench_musl lat_syscall -P 1 open test ✅
 lmbench_musl lat_select -n 100 -P 1 file //not found in lmbench_musl
 lmbench_musl lat_sig -P 1 install ✅
 lmbench_musl lat_sig -P 1 catch  //fail
@@ -25,13 +25,38 @@ busybox echo file system latency
 lmbench_musl lat_fs /var/tmp  ✅ 
 busybox echo Bandwidth measurements
 lmbench_musl bw_pipe -P 1 -m 1024 -M 1024 ✅
-lmbench_musl bw_file_rd -P 1 512k io_only /var/tmp/XXX
-lmbench_musl bw_file_rd -P 1 512k open2close /var/tmp/XXX
-lmbench_musl bw_mmap_rd -P 1 512k mmap_only /var/tmp/XXX ✅
-lmbench_musl bw_mmap_rd -P 1 512k open2close /var/tmp/XXX ✅
+lmbench_musl bw_file_rd -P 1 512k io_only test ✅
+lmbench_musl bw_file_rd -P 1 512k open2close test ✅
+lmbench_musl bw_mmap_rd -P 1 512k mmap_only test ✅
+lmbench_musl bw_mmap_rd -P 1 512k open2close test ✅
 busybox echo context switch overhead
 lmbench_musl lat_ctx -P 1 -s 32 2 4 8 16 24 32 64 96 //partial success
 ```
+
+
+
+|                    test                    |                            result                            |
+| :----------------------------------------: | :----------------------------------------------------------: |
+|           lat_syscall -P 1 null            |            Simple syscall: `3.7935` microseconds             |
+|           lat_syscall -P 1 read            |             Simple read:` 64.3000` microseconds              |
+|           lat_syscall -P 1 write           |            Simple write: `212.0769` microseconds             |
+|        lat_syscall -P 1 stat hello         |             Simple stat: `188.5862` microseconds             |
+|        lat_syscall -P 1 fstat hello        |             Simple fstat: `9.4718` microseconds              |
+|        lat_syscall -P 1 open hello         |          Simple open/close: `194.0000` microseconds          |
+|            lat_sig -P 1 install            |      Signal handler installation: `7.7637` microseconds      |
+|               lat_pipe -P 1                |             Pipe latency: `99.8388` microseconds             |
+|             lat_proc -P 1 fork             |          Process fork+exit: `397.5833` microseconds          |
+|             lat_proc -P 1 exec             |         Process fork+execve: `416.5000` microseconds         |
+|            lat_proc -P 1 shell             |       Process fork+/bin/sh -c: `396.3571` microseconds       |
+| lmdd of=/dev/zero move=10m fsync=1 print=3 |                        `29914` KB/sec                        |
+|          lat_pagefault -P 1 test           |         Pagefaults on test: `119.2568` microseconds          |
+|          lat_mmap -P 1 512k test           |                       `0.524288` `686`                       |
+|            lmbench_musl lat_fs             | 0k      11      986     2828<br/>1k      9       752     2701<br/>  4k      8       730     2534<br/>10k     8       697     2396<br/> |
+|        bw_pipe -P 1 -m 1024 -M 1024        |                Pipe bandwidth: `17.74` MB/sec                |
+|    bw_mmap_rd -P 1 512k mmap_only test     |                    `0.524288` `15551.29`                     |
+|    bw_mmap_rd -P 1 512k open2close test    |                     `0.524288` `301.57`                      |
+|     bw_file_rd -P 1 512k io_only test      |                     `0.524288` `343.63`                      |
+|                                            |                                                              |
 
 
 
@@ -107,10 +132,7 @@ exit_group(0)                           = ?
 
 
 
-今日进展：
+b bw_file_rd.c:180
 
-1. 阅读论文Precise and Accurate Patch Presence Test for Binaries提出的补丁检测方法的设计思路，具体实现与评估
 
-问题：
 
-1. Github repo现在没有在维护，且commit记录中没有支持多个指令集。论文中虽说分析与签名时仅使用体系结构无关的IR，但其实验均是现在aarch64指令集上。
