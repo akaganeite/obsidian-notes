@@ -1,0 +1,71 @@
+# linux内核漏洞补丁存在性检测
+
+## 准备Linux内核binary
+
+1. CVE选取：CVE-2023-38409
+
+   - https://www.cve.org/CVERecord?id=CVE-2023-38409
+   - Patch: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=fffb0b52d5258554c645c966c6cbef7de50b851d
+   - Commit: fffb0b52d5258554c645c966c6cbef7de50b851d
+   - 更改函数：`drivers/video/fbdev/core/fbcon.c:set_con2fb_map`
+2. linux内核编译：
+
+   - menuconfig选项，确保开启：
+     - Device Drivers > Graphics support > Frame buffer Devices > Support for frame buffer devices
+     - Kernel hacking > Compile-time checks and compiler options > Debug information > 只要不选disable debug information就可以
+   - 内核版本信息：
+     - Patched commit : __fffb0b52d5258554c645c966c6cbef7de50b851d__
+     - Unpatched commit : __85e068 9eb6b10cd3b2fb455d1b3f4d4d0b13ff78__
+
+## 运行ps3
+
+### 准备patch/vuln与target binary
+
+```bash
+cd /path/to/ps3
+mkdir -p dataset/binary/linux
+cp path/to/patched_kernel dataset/binary/linux/CVE-year-id_commit_patch 
+cp path/to/vuln_kernel dataset/binary/linux/CVE-year-id_commit_vuln
+cp path/to/target_kernel dataset/binary/linux/LinuxKernel_cve_id
+```
+
+- commit是kernel打patch那个commit的前6位
+
+### 准备diff文件
+
+```
+cp path/to/diff dataset/diff/CVE-year-id_commit.diff
+```
+
+ ### 修改json配置文件
+
+- test.jsonl
+
+  ```json
+  {
+   "file": "LinuxKernel_38409",//target_kernel文件名
+   "cve": "CVE-2023-38409", //cve_id
+   "commit": "fffb0b52d5258554c645c966c6cbef7de50b851d", //完整的patch commit id
+   "ground_truth": "patch", //target是patch或vuln
+   "project": "linux" //对应dataset/binary/linux目录
+  }
+  ```
+
+- CVE_info.jsonl：无需内容，文件为空程序也可以正常运行
+
+### 运行
+
+```
+python ps3/main.py
+```
+
+- 生成patch与vuln的binary的signature
+- 生成target binary的signature并与先前的signature做对比，判断target是否存在目标补丁
+
+- 结果：target为没有打补丁版本，检测result=vuln，结果正确
+
+  > CVE-2023-38409
+  > LinuxKernel_38409 truth is vuln
+  > CVE-2023-38409 LinuxKernel_38409 truth = vuln result = vuln
+  > linux CVE-2023-38409 (1.0, 1.0, 1.0)
+  > RQ1 (1.0, 1.0, 1.0)
