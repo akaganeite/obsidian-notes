@@ -1,5 +1,15 @@
 # work flow
 
+## original diff backup
+
+```c
+    if (header->size == 0 || is_flag_invalid(header->flag)) {
+        return true;  
+    }
+```
+
+
+
 ## preprocess
 
 - 解析diff文件，拿到更改的函数名与源文件名
@@ -36,3 +46,57 @@
   ```
 
 - 后续的符号执行将只关注上述add=[]中的地址
+
+
+
+## About mem addr in sigs generated
+
+### mem addr
+
+- 当patch修改的代码包含全局变量时，会出现内存地址
+
+- 例子：CVE-2023-38409
+
+  - diff:
+
+  ```
+  @@ -846,10 +846,11 @@ static int set_con2fb_map(int unit, int newidx, int user)
+   		if (err)
+   			return err;
+   
+  -		con2fb_map[unit] = newidx;
+   		fbcon_add_cursor_work(info);
+   	}
+   
+  +	con2fb_map[unit] = newidx;
+  +
+  ```
+
+  - sigs:
+
+  ```
+      patch_effect:{
+                      Store: 18446744071617626944 + SR(72) = SR(64)
+                  }
+  ```
+
+- 这里，SR(72) 和 SR(64) 分别代表函数入参unit和newidx。18446744071617626944为内核数据段地址，对应con2fb_map，为全局变量，在set_con2fb_map函数所在文件中声明：`static signed char con2fb_map[MAX_NR_CONSOLES];`
+
+### no mem addr
+
+- 以ko的漏洞为例
+
+  - diff:
+
+  ```
+  @@ -19,0 +20 @@ bool check_conditions(struct custom_header *header) {
+  +    header->data=0x1000;
+  ```
+
+  - 增加了这一行，对入参结构体指针的某一个成员赋值。
+  - 汇编： `movl   $0x1000,0x8(%rdi)`，将0x1000赋值给rdi寄存器+8偏移，也就是data字段。
+  - sig：Store: 8 + SR(72) = 4096，由于赋值操作只涉及寄存器(符号化为SR (72)),因此该签名是鲁棒的。
+
+### 如何解决？
+
+- 试图解析内存地址的更多语义信息，如通过内存地址锁定对应的symbol
